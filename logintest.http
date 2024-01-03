@@ -1,0 +1,27 @@
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "fullName" : "jeel",
+  "email" : "test@test2.com",
+  "password" : "testpassword",
+  "confirmPassword" : "testpassword"
+}
+
+####
+GET http://localhost:3000/
+Content-Type: application/json
+
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email" : "test@test.com",
+  "password" : "testpassword"
+}
+
+###
+
+POST http://localhost:3000/logout
+Content-Type: application/json
