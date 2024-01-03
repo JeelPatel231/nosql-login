@@ -29,6 +29,7 @@
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "couchbase": "^4.2.8",
+    "dotenv": "^16.3.1",
     "jsonwebtoken": "^9.0.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
@@ -40,6 +41,7 @@
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.6",
     "@types/couchbase": "^2.4.9",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.5",

@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common";
 
 import * as bcrypt from "bcrypt"
+import { CONFIG } from "./Configuration";
 
 @Injectable()
 export class HashService {
-  private readonly saltRounds = 10
+  private readonly saltRounds = parseInt(CONFIG.saltRounds)
 
   async hash(data: string): Promise<string>{
     return await bcrypt.hash(data, this.saltRounds)

@@ -1,17 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { Bucket, BucketManager, Cluster, connect } from "couchbase";
-
-const clusterConnStr = 'couchbase://localhost';
-const username = 'admin';
-const password = 'password';
-
+import { CONFIG } from "./Configuration";
 
 @Injectable()
 export class CouchDbService {
 
-  private readonly connectionPromise: Promise<Cluster> = connect(clusterConnStr, { 
-    username: username, 
-    password: password
+  private readonly connectionPromise: Promise<Cluster> = connect(CONFIG.clusterConnectionStr, { 
+    username: CONFIG.dbUsername, 
+    password: CONFIG.dbPassword,
   })
 
   private async getConnection() : Promise<Cluster> {
