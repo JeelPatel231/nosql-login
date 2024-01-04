@@ -1,9 +1,11 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
 import { CouchDbService } from 'src/common/services/Connection';
 import { HashService } from 'src/common/services/HashService';
 import { CreateUserDto } from 'lib/dto/User';
 import { isDocumentExistsError } from 'lib/typeguards/couchbaseErrors';
+import { CurrentUser } from 'src/decorators/User.decorator';
+import { JwtUserPayload } from 'src/common/middleware/User.middleware';
 
 @Controller('user')
 export class UserController {
@@ -11,6 +13,12 @@ export class UserController {
     private readonly dbService: CouchDbService,
     private readonly hashService: HashService,
   ) {}
+
+  @Get('me')
+  async getCurrentUser(@CurrentUser() user?: JwtUserPayload) {
+    if(user == null) return "Not Logged in"
+    return user.email;
+  }
  
   @Post()
   async createUser(@Body() createAccountDto: CreateUserDto) : Promise<string> {
