@@ -7,10 +7,13 @@ import { isDocumentExistsError, isDocumentNotFoundError } from "./typeguards";
 @Injectable()
 export class CouchDbService {
 
-  private readonly connectionPromise: Promise<Cluster> = connect(CONFIG.CLUSTER_CONN_STRING, { 
-    username: CONFIG.DB_USERNAME, 
-    password: CONFIG.DB_PASSWORD,
-  })
+  private readonly connectionPromise: Promise<Cluster>
+  constructor() {
+    this.connectionPromise = connect(CONFIG.CLUSTER_CONN_STRING, { 
+      username: CONFIG.DB_USERNAME, 
+      password: CONFIG.DB_PASSWORD,
+    })
+  }
 
 
   async getCollection(bucket: string, scope: string = "_default", collection: string = "_default") {
