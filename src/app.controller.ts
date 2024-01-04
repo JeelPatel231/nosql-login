@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { Cookies } from './decorators/Cookie.decorator';
-import { CouchDbService } from 'lib/services/Connection';
-import { JWTService } from 'lib/services/JWTService';
+import { CouchDbService } from 'src/common/services/Connection';
+import { JWTService } from 'src/common/services/JWTService';
 import { plainToInstance } from 'class-transformer';
 import { SavedUserDto } from 'lib/dto/User';
 

@@ -1,5 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { IsEqualTo, Match } from '../../src/decorators/Match.decorator';
+import { IsEqualTo, Match } from 'src/decorators/Match.decorator';
 import { Exclude } from 'class-transformer';
 
 export class CreateUserDto {

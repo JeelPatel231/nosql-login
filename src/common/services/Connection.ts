@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Bucket, BucketManager, Cluster, connect } from "couchbase";
-import { CONFIG } from "./Configuration";
+import { CONFIG } from "src/app.configuration";
 
 @Injectable()
 export class CouchDbService {

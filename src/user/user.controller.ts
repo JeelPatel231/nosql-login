@@ -1,7 +1,7 @@
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { classToPlain, instanceToPlain } from 'class-transformer';
-import { CouchDbService } from 'lib/services/Connection';
-import { HashService } from 'lib/services/HashService';
+import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import { instanceToPlain } from 'class-transformer';
+import { CouchDbService } from 'src/common/services/Connection';
+import { HashService } from 'src/common/services/HashService';
 import { CreateUserDto } from 'lib/dto/User';
 import { isDocumentExistsError } from 'lib/typeguards/couchbaseErrors';
 
@@ -28,7 +28,7 @@ export class UserController {
         .insert(createAccountDto.email, serialized)
     } catch(error: unknown) {
       if(isDocumentExistsError(error)) {
-        throw new HttpException('Account already exists', HttpStatus.BAD_REQUEST)
+        throw new BadRequestException('Account already exists')
       }
 
       throw error
