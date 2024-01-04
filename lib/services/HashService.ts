@@ -5,7 +5,7 @@ import { CONFIG } from "./Configuration";
 
 @Injectable()
 export class HashService {
-  private readonly saltRounds = parseInt(CONFIG.saltRounds)
+  private readonly saltRounds = parseInt(CONFIG.SALT_ROUNDS)
 
   async hash(data: string): Promise<string>{
     return await bcrypt.hash(data, this.saltRounds)
