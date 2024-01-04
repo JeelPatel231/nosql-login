@@ -20,4 +20,9 @@ export class UserService {
     await this.dbService.try(() => userCollection.insert(user.email, user))
   }
 
+  async updateUser(user: UserEntity) {
+    const userCollection = await this.dbService.getCollection("users")  
+    await this.dbService.try(() => userCollection.upsert(user.email, user))
+  }
+
 }
