@@ -1,28 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { IsEqualTo, Match } from 'src/decorators/Match.decorator';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { Exclude } from 'class-transformer';
-
-export class CreateUserDto {
-  @IsString()
-  @IsNotEmpty()
-  fullName: string
-
-  @IsEmail()
-  email: string;
-
-  @IsString()
-  @MinLength(8)
-  // TODO: check for post validation tranformations
-  // for hashing password
-  password: string;
-
-  @IsString()
-  @MinLength(8)
-  @IsEqualTo('password')
-  @Exclude({ toPlainOnly: true })
-  confirmPassword: string;
-
-}
 
 export class SavedUserDto {
   @IsString()

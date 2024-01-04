@@ -2,10 +2,10 @@ import { BadRequestException, Body, Controller, Get, Post } from '@nestjs/common
 import { instanceToPlain } from 'class-transformer';
 import { CouchDbService } from 'src/common/services/Connection';
 import { HashService } from 'src/common/services/HashService';
-import { CreateUserDto } from 'lib/dto/User';
 import { isDocumentExistsError } from 'lib/typeguards/couchbaseErrors';
 import { CurrentUser } from 'src/decorators/User.decorator';
 import { JwtUserPayload } from 'src/common/middleware/User.middleware';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
