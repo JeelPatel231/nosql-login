@@ -5,7 +5,7 @@ import { CONFIG } from "./Configuration";
 @Injectable()
 export class CouchDbService {
 
-  private readonly connectionPromise: Promise<Cluster> = connect(CONFIG.CLUSTER_CONN_STRIN, { 
+  private readonly connectionPromise: Promise<Cluster> = connect(CONFIG.CLUSTER_CONN_STRING, { 
     username: CONFIG.DB_USERNAME, 
     password: CONFIG.DB_PASSWORD,
   })

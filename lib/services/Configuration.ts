@@ -1,16 +1,18 @@
 import { config } from "dotenv"
 
-type AppConfig = {
-  JWT_SECRET: string,
-  SALT_ROUNDS: string,
-  DB_USERNAME: string,
-  DB_PASSWORD: string,
-  CLUSTER_CONN_STRIN: string,
-}
+// declare your env vars here
+const AppConfigKeys = [
+  'JWT_SECRET',
+  'SALT_ROUNDS',
+  'DB_USERNAME',
+  'DB_PASSWORD',
+  'CLUSTER_CONN_STRING'
+] as const
 
-function strictEnvConfig<T>(keys: string[]) {
+
+function strictEnvConfig<T extends string>(keys: readonly T[]) {
   config()
-  const allKeys = keys.map(x => [x, process.env[x.valueOf()]])
+  const allKeys = keys.map(x => [x, process.env[x]])
   
   const unSetKeys = allKeys
     .filter(([_, value]) => value == null)
@@ -20,15 +22,7 @@ function strictEnvConfig<T>(keys: string[]) {
     throw new Error(`${unSetKeys.join()}, these keys are mandatory to be set in order for app to work`)
   }
 
-  return Object.fromEntries(allKeys) as T // TODO: fix this unchecked cast
+  return Object.fromEntries(allKeys) as Record<T, string>
 }
 
-
-// TODO: use typescript type's keys as values for reducing redundancy
-export const CONFIG: AppConfig = strictEnvConfig<AppConfig>([
-  'JWT_SECRET',
-  'SALT_ROUNDS',
-  'DB_USERNAME',
-  'DB_PASSWORD',
-  'CLUSTER_CONN_STRING'
-])
+export const CONFIG = strictEnvConfig(AppConfigKeys)
