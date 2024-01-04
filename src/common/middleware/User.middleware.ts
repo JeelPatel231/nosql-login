@@ -24,11 +24,6 @@ export class AuthMiddleware implements NestMiddleware {
 
     try {
       const decodedRaw = await this.jwtService.decodeJwt(jwtToken)
-
-      if(typeof decodedRaw == 'string') {
-        throw new BadRequestException('Return type of jwt decode was string')
-      } 
-      
       req.user = (decodedRaw as JwtUserPayload)
     } catch(e: unknown) {
       // log and ignore the error because auth isnt mandatory
