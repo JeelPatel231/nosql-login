@@ -5,18 +5,18 @@ import { JwtUserPayload } from 'src/common/middleware/User.middleware';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserEntity } from './interface/user.interface';
 import { UserService } from './user.service';
-import { instanceToPlain, plainToInstance } from 'class-transformer';
+import { plainToInstance } from 'class-transformer';
 import { ChangePasswordDto, SetPasswordDto } from './dto/change-password.dto';
 import { AuthGuard } from './user.guard';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { JWTService } from 'src/common/services/JWTService';
+import { EmailService } from 'src/common/services/EmailService';
 
 @Controller('user')
 export class UserController {
   constructor(
-    private readonly jwtService: JWTService,
     private readonly userService: UserService,
     private readonly hashService: HashService,
+    private readonly emailService: EmailService,
   ) {}
 
   @Get('me')
@@ -46,10 +46,10 @@ export class UserController {
 
   @Post('forgotpassword')
   async forgotPassword(@Body() data: ForgotPasswordDto) {
-    // TODO: send an email with a token, but mimicing with normal response for now
-    const payload = instanceToPlain(data)
-    const jwtToken = this.jwtService.signJwt(payload)
-    return jwtToken
+    // check if user exists in DB, this throws if user doesnt exist
+    await this.userService.getUserFromPk(data.email)
+
+    await this.emailService.sendForgotPasswordEmail(data.email)
   }
  
   @UseGuards(AuthGuard)

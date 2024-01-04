@@ -4,9 +4,15 @@ import { config } from "dotenv"
 const AppConfigKeys = [
   'JWT_SECRET',
   'SALT_ROUNDS',
+  
   'DB_USERNAME',
   'DB_PASSWORD',
-  'CLUSTER_CONN_STRING'
+  'CLUSTER_CONN_STRING',
+
+  'SMTP_HOST',
+  'SMTP_PORT',
+  'EMAIL_USERNAME',
+  'EMAIL_PASSWORD',
 ] as const
 
 
