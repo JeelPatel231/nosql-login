@@ -22,7 +22,7 @@ export class UserController {
  
   @Post()
   async createUser(@Body() createAccountDto: CreateUserDto) : Promise<string> {
-    const userBucket = await this.dbService.userBucket()
+    const userCollection = await this.dbService.getCollection("user")
 
     // change the password to its hashed value
     createAccountDto.password = await this.hashService.hash(createAccountDto.password)
@@ -31,9 +31,7 @@ export class UserController {
     const serialized = instanceToPlain(createAccountDto)
 
     try {
-      await userBucket
-        .defaultCollection()
-        .insert(createAccountDto.email, serialized)
+      await userCollection.insert(createAccountDto.email, serialized)
     } catch(error: unknown) {
       if(isDocumentExistsError(error)) {
         throw new BadRequestException('Account already exists')

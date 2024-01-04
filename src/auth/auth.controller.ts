@@ -18,13 +18,12 @@ export class AuthController {
 
   @Post('login')
   async login(@Res() response: Response, @Body() loginUserDto: LoginUserDto) {
-    const userBucket = await this.dbService.userBucket()
+    const userCollection = await this.dbService.getCollection("user")
 
     let userData;
     try {
       
-      userData = await userBucket.defaultCollection()
-        .get(loginUserDto.email)
+      userData = await userCollection.get(loginUserDto.email)
     
     } catch(error: any) {
       

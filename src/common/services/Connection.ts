@@ -10,13 +10,15 @@ export class CouchDbService {
     password: CONFIG.DB_PASSWORD,
   })
 
-  private async getConnection() : Promise<Cluster> {
-    return await this.connectionPromise
+  get connection():  Promise<Cluster> {
+    return this.connectionPromise
   }
 
-  async userBucket(): Promise<Bucket> {
-    const conn = await this.getConnection()
-    return conn.bucket("users")
-  }
+  async getCollection(bucket: string, scope: string = "_default", collection: string = "_default") {
+    return (await this.connection)
+      .bucket(bucket)
+      .scope(scope)
+      .collection(collection)
+  } 
 
 }
