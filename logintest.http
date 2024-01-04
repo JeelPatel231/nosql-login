@@ -25,3 +25,34 @@ Content-Type: application/json
 
 POST http://localhost:3000/auth/logout
 Content-Type: application/json
+
+###
+
+POST http://localhost:3000/user/changepassword
+Content-Type: application/json
+
+{
+  "oldPassword": "testpassword",
+  "newPassword": "testpassword2"
+}
+
+###
+POST http://localhost:3000/user/forgotpassword
+Content-Type: application/json
+
+{
+  "email": "email@email.com"
+}
+
+###
+
+
+POST http://localhost:3000/user/setnewpassword
+Cookie: jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsImlhdCI6MTcwNDM3MDAwNX0.OaG-UqttO0i6Iuc5M_Z-fJzlkOg_GEIGBDuuMa5e2tw;
+Content-Type: application/json
+
+{
+  "newPassword": "testpassword"
+}
+
+
