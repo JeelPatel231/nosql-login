@@ -6,16 +6,12 @@ export type JwtUserPayload = {
   email: string
 }
 
-type ExtendedRequest = Request & {
-  user: JwtUserPayload
-}
-
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
 
   constructor(private readonly jwtService: JWTService){}
 
-  async use(req: ExtendedRequest, res: Response, next: NextFunction) {
+  async use(req: Request, res: Response, next: NextFunction) {
     const jwtToken = req.cookies["jwt"];
 
     if(jwtToken == null) {
@@ -24,7 +20,7 @@ export class AuthMiddleware implements NestMiddleware {
 
     try {
       const decodedRaw = await this.jwtService.decodeJwt(jwtToken)
-      req.user = (decodedRaw as JwtUserPayload)
+      req.user = decodedRaw as JwtUserPayload
     } catch(e: unknown) {
       // log and ignore the error because auth isnt mandatory
       console.error("jwt decode failed", e)
