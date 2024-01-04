@@ -37,13 +37,3 @@ export class SavedUserDto {
   @Exclude({ toPlainOnly : true })
   password: string;
 }
-
-
-export class LoginUserDto {
-  @IsEmail()
-  email: string;
-
-  @IsString()
-  @MinLength(8)
-  password: string;
-}

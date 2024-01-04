@@ -1,11 +1,12 @@
 import { Body, Controller, NotFoundException, NotImplementedException, Post, Res, UnauthorizedException } from "@nestjs/common";
 import { plainToInstance } from "class-transformer";
 import { Response } from "express";
-import { CreateUserDto, LoginUserDto } from "lib/dto/User";
+import { CreateUserDto } from "lib/dto/User";
 import { CouchDbService } from "src/common/services/Connection";
 import { HashService } from "src/common/services/HashService";
 import { JWTService } from "src/common/services/JWTService";
 import { isDocumentNotFoundError } from "lib/typeguards/couchbaseErrors";
+import { LoginUserDto } from "src/auth/dto/login-user.dto";
 
 @Controller('auth')
 export class AuthController {
