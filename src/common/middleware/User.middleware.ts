@@ -13,9 +13,7 @@ type ExtendedRequest = Request & {
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
 
-  constructor(
-    private readonly jwtService: JWTService
-  ){}
+  constructor(private readonly jwtService: JWTService){}
 
   async use(req: ExtendedRequest, res: Response, next: NextFunction) {
     const jwtToken = req.cookies["jwt"];
@@ -35,7 +33,6 @@ export class AuthMiddleware implements NestMiddleware {
     } catch(e: unknown) {
       // log and ignore the error because auth isnt mandatory
       console.error("jwt decode failed", e)
-
     }
     
     next();

@@ -1,44 +1,25 @@
-import { Body, Controller, NotFoundException, NotImplementedException, Post, Res, UnauthorizedException } from "@nestjs/common";
-import { plainToInstance } from "class-transformer";
+import { Body, Controller, Post, Res, UnauthorizedException } from "@nestjs/common";
 import { Response } from "express";
-import { CouchDbService } from "src/common/services/Connection";
 import { HashService } from "src/common/services/HashService";
 import { JWTService } from "src/common/services/JWTService";
-import { isDocumentNotFoundError } from "lib/typeguards/couchbaseErrors";
 import { LoginUserDto } from "src/auth/dto/login-user.dto";
-import { CreateUserDto } from "src/user/dto/create-user.dto";
+import { UserService } from "src/user/user.service";
 
 @Controller('auth')
 export class AuthController {
   constructor(
-    private readonly dbService: CouchDbService,
+    private readonly userService: UserService,
     private readonly jwtService: JWTService,
     private readonly hashService: HashService
   ) {}
 
   @Post('login')
   async login(@Res() response: Response, @Body() loginUserDto: LoginUserDto) {
-    const userCollection = await this.dbService.getCollection("user")
-
-    let userData;
-    try {
-      
-      userData = await userCollection.get(loginUserDto.email)
+    const userFromDb = await this.userService.getUserFromPk(loginUserDto.email)
     
-    } catch(error: any) {
-      
-      if(isDocumentNotFoundError(error)){
-        throw new NotFoundException('Account not found')
-      }
-
-      // throw the unhandled error
-      throw error
-    }
-
-    const validatedUserData = plainToInstance(CreateUserDto, userData.value)
     const isPasswordSame = await this.hashService.compare(
       loginUserDto.password,
-      validatedUserData.password
+      userFromDb.password
     )
 
     if(!isPasswordSame) {

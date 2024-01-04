@@ -1,7 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
-import { Exclude } from 'class-transformer';
+import { Exclude, plainToInstance } from 'class-transformer';
 
-export class SavedUserDto {
+export class UserEntity {
   @IsString()
   @IsNotEmpty()
   fullName: string
@@ -13,4 +13,5 @@ export class SavedUserDto {
   @MinLength(8)
   @Exclude({ toPlainOnly : true })
   password: string;
+
 }

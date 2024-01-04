@@ -1,10 +1,11 @@
 import { Module } from "@nestjs/common";
-import { CouchDbService } from "src/common/services/Connection";
 import { HashService } from "src/common/services/HashService";
 import { JWTService } from "src/common/services/JWTService";
+import { CouchDbService } from "./services/couchbase/Connection";
+import { UserService } from "src/user/user.service";
 
 @Module({
-  providers: [CouchDbService,HashService,JWTService],
-  exports: [CouchDbService,HashService,JWTService],
+  providers: [CouchDbService,HashService,JWTService, UserService],
+  exports: [CouchDbService,HashService,JWTService, UserService],
 })
 export class CommonModule {}

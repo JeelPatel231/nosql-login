@@ -1,17 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
-import { Cookies } from './decorators/Cookie.decorator';
-import { CouchDbService } from 'src/common/services/Connection';
-import { JWTService } from 'src/common/services/JWTService';
-import { plainToInstance } from 'class-transformer';
-import { SavedUserDto } from 'lib/dto/User';
 import { CurrentUser } from './decorators/User.decorator';
 import { JwtUserPayload } from './common/middleware/User.middleware';
+import { UserService } from './user/user.service';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly dbService: CouchDbService,
-    private readonly jwtService: JWTService
+    private readonly userService: UserService,
   ) {}
 
   @Get()
@@ -21,11 +16,8 @@ export class AppController {
       return "Hello World (not logged in)"
     }
 
-    const userCollection = await this.dbService.getCollection("user")
-    const userFromDb = await userCollection.get(currentUser.email)
+    const userFromDb = await this.userService.getUserFromPk(currentUser.email)
   
-    const validated = plainToInstance(SavedUserDto, userFromDb.value)
-
-    return `Hello, ${validated.fullName}`
+    return `Hello, ${userFromDb.fullName}`
   }
 }
