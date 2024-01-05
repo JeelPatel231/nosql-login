@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { UserEntity } from "./interface/user.interface";
 import { CouchDbService } from "src/common/services/couchbase/Connection";
 
