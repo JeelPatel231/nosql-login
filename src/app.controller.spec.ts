@@ -1,5 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
+import { CommonModule } from './common/common.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -8,14 +11,15 @@ describe('AppController', () => {
     const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [],
+      imports: [CommonModule, AuthModule, UserModule],
     }).compile();
 
     appController = app.get<AppController>(AppController);
   });
 
-  // describe('root', () => {
-  //   it('should return "Hello World!"', () => {
-  //     expect(appController.getHello()).toBe('Hello World!');
-  //   });
-  // });
+  describe('root', () => {
+    it('should be defined"', () => {
+      expect(appController).toBeDefined()
+    });
+  });
 });
