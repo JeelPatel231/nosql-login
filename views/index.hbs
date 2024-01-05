@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/main.css">
+  <title>Hello world</title>
+</head>
+<body>
+  <main>
+    <h1 class="flex justify-center">
+      {{#with user }}
+        Hello, {{ fullName }}
+
+        <form method="POST" action="/auth/logout">
+          <button type="submit"> Logout </button>
+        </form>
+
+      {{else}}
+        You are not logged in
+      {{/with}}
+    </h1>
+  </main>
+</body>
+</html>

@@ -38,7 +38,7 @@ export class EmailService {
     const jwtToken = await this.jwtService.signJwt({ email: to })
     
     const htmlBody = `
-      <a href="https://example.com/frontendlink/${jwtToken}">
+      <a href="https://example.com/setnewpassword/${jwtToken}">
         Click here to change password
       </a>
     `
