@@ -50,6 +50,8 @@ export class UserController {
     await this.userService.getUserFromPk(data.email)
 
     await this.emailService.sendForgotPasswordEmail(data.email)
+
+    return "Email sent to your account with the password reset link"
   }
  
   @UseGuards(AuthGuard)
