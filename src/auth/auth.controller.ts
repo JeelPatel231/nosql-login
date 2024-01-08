@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res, UnauthorizedException } from "@nestjs/common";
 import { Response } from "express";
-import { HashService } from "src/common/services/HashService";
-import { JWTService } from "src/common/services/JWTService";
+import { HashService } from "src/common/services/hash/HashService";
+import { JWTService } from "src/common/services/jwt/JWTService";
 import { LoginUserDto } from "src/auth/dto/login-user.dto";
 import { UserService } from "src/user/user.service";
 

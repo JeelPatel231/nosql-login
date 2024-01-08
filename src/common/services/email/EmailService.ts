@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 
 import * as nodemailer from "nodemailer"
 import { CONFIG } from "src/app.configuration";
-import { JWTService } from "./JWTService";
+import { JWTService } from "../jwt/JWTService";
 
 export type MailDetails = {
   to: string,

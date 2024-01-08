@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { HashService } from 'src/common/services/HashService';
+import { HashService } from 'src/common/services/hash/HashService';
 import { CurrentUser } from 'src/decorators/User.decorator';
 import { JwtUserPayload } from 'src/common/middleware/User.middleware';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -9,7 +9,7 @@ import { plainToInstance } from 'class-transformer';
 import { ChangePasswordDto, SetPasswordDto } from './dto/change-password.dto';
 import { AuthGuard } from './user.guard';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { EmailService } from 'src/common/services/EmailService';
+import { EmailService } from 'src/common/services/email/EmailService';
 
 @Controller('user')
 export class UserController {

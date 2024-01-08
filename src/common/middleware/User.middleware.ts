@@ -1,6 +1,6 @@
-import { BadRequestException, createParamDecorator, ExecutionContext, Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { JWTService } from '../services/JWTService';
+import { JWTService } from 'src/common/services/jwt/JWTService';
 
 export type JwtUserPayload = {
   email: string
