@@ -1,19 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { UserController } from './user.controller';
-import { CommonModule } from 'src/common/common.module';
-import { UserService } from './user.service';
+import { MockUserService } from './user.service';
+import { MockEmailService } from 'src/common/services/email/EmailService.mock';
+import { MockHashService } from 'src/common/services/hash/HashService.mock';
 
 describe('UserController', () => {
   let controller: UserController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [CommonModule],
-      controllers: [UserController],
-      providers: [UserService]
-    }).compile();
-
-    controller = module.get<UserController>(UserController);
+    controller =  new UserController(
+      MockUserService.get(),
+      MockHashService.get(),
+      MockEmailService.get(), 
+    )
   });
 
   it('should be defined', () => {

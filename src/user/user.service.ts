@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { UserEntity } from "./interface/user.interface";
 import { CouchDbService } from "src/common/services/couchbase/Connection";
+import { MockCouchbaseService } from "src/common/services/couchbase/Connection.mock";
 
 
 @Injectable()
@@ -25,4 +26,10 @@ export class UserService {
     await this.dbService.try(() => userCollection.upsert(user.email, user))
   }
 
+}
+
+export class MockUserService {
+  static get(): UserService {
+    return new UserService(MockCouchbaseService.get())
+  }
 }
