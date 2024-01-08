@@ -3,21 +3,33 @@ import { ClassConstructor, plainToInstance } from "class-transformer";
 import { Cluster, DocumentExistsError, DocumentNotFoundError, connect } from "couchbase";
 import { CONFIG } from "src/app.configuration";
 
+type CouchbaseConfig = {
+  clusterConectionUrl: string,
+  username: string,
+  password: string,
+}
+
+const envCouchbaseConfig: CouchbaseConfig = {
+  clusterConectionUrl: CONFIG.CLUSTER_CONN_STRING,
+  username: CONFIG.DB_USERNAME,
+  password: CONFIG.DB_PASSWORD
+}
+
 @Injectable()
 export class CouchDbService {
 
   private readonly connectionPromise: Promise<Cluster>
-  constructor() {
-    this.connectionPromise = connect(CONFIG.CLUSTER_CONN_STRING, { 
-      username: CONFIG.DB_USERNAME, 
-      password: CONFIG.DB_PASSWORD,
+  constructor(config: CouchbaseConfig = envCouchbaseConfig) {
+    this.connectionPromise = connect(config.clusterConectionUrl, { 
+      username: config.username,
+      password: config.password,
     })
   }
 
 
   async getCollection(bucket: string, scope: string = "_default", collection: string = "_default") {
     return (await this.connectionPromise)
-      .bucket(bucket)
+      .bucket(bucket) // TODO: add scope
       .collection(collection)
   } 
 
