@@ -9,7 +9,7 @@ type CouchbaseConfig = {
   password: string,
 }
 
-const envCouchbaseConfig: CouchbaseConfig = {
+const EnvCouchbaseConfig: CouchbaseConfig = {
   clusterConectionUrl: CONFIG.CLUSTER_CONN_STRING,
   username: CONFIG.DB_USERNAME,
   password: CONFIG.DB_PASSWORD
@@ -19,7 +19,8 @@ const envCouchbaseConfig: CouchbaseConfig = {
 export class CouchDbService {
 
   private readonly connectionPromise: Promise<Cluster>
-  constructor(config: CouchbaseConfig = envCouchbaseConfig) {
+ 
+  constructor(config: CouchbaseConfig = EnvCouchbaseConfig) {
     this.connectionPromise = connect(config.clusterConectionUrl, { 
       username: config.username,
       password: config.password,
