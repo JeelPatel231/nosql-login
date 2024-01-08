@@ -1,8 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { ClassConstructor, plainToInstance } from "class-transformer";
-import { Cluster, connect } from "couchbase";
+import { Cluster, DocumentExistsError, DocumentNotFoundError, connect } from "couchbase";
 import { CONFIG } from "src/app.configuration";
-import { isDocumentExistsError, isDocumentNotFoundError } from "./typeguards";
 
 @Injectable()
 export class CouchDbService {
@@ -32,11 +31,11 @@ export class CouchDbService {
     catch(error: unknown) {
       // handle errors thrown by couchbase here
       // and map them to HttpExceptions
-      if(isDocumentExistsError(error)) {
+      if(error instanceof DocumentExistsError) {
         throw new BadRequestException("Entity with same key already exists")
       }
 
-      if(isDocumentNotFoundError(error)) {
+      if(error instanceof DocumentNotFoundError) {
         throw new NotFoundException("Entity not found")
       }
 
